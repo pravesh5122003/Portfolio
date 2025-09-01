@@ -1,5 +1,6 @@
 import React from "react";
 import { education } from "../../constants"; // Import the education data
+import { motion } from "framer-motion"; // ✅ Import framer-motion
 
 const Education = () => {
   return (
@@ -12,7 +13,8 @@ const Education = () => {
         <h2 className="text-4xl font-bold text-white">EDUCATION</h2>
         <div className="w-32 h-1 bg-purple-500 mx-auto mt-4"></div>
         <p className="text-gray-400 mt-4 text-lg font-semibold">
-          My education has been a journey of learning and development. Here are the details of my academic background
+          My education has been a journey of learning and development. Here are
+          the details of my academic background
         </p>
       </div>
 
@@ -38,11 +40,21 @@ const Education = () => {
               />
             </div>
 
-            {/* Content Section */}
-            <div
-              className={`w-full sm:max-w-md p-4 sm:p-8 rounded-2xl shadow-2xl border border-white bg-gray-900 backdrop-blur-md shadow-[0_0_20px_1px_rgba(130,69,236,0.3)] ${
-                index % 2 === 0 ? "sm:ml-0" : "sm:mr-0"
-              } sm:ml-44 sm:mr-44 ml-8 transform transition-transform duration-300 hover:scale-105`}
+            {/* Content Section with Motion */}
+            <motion.div
+              initial={{
+                opacity: 0,
+                x: index % 2 === 0 ? -80 : 80, // slide from left if even, right if odd
+              }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }} // ✅ little slower for smooth feel
+              viewport={{ once: true }}
+              className={`w-full sm:max-w-md p-4 sm:p-8 rounded-2xl shadow-2xl border border-white bg-gray-900 backdrop-blur-md shadow-[0_0_20px_1px_rgba(130,69,236,0.3)] transform transition-transform duration-300 hover:scale-105
+                ${
+                  index % 2 === 0
+                    ? "sm:ml-[calc(50%+3rem)]" // left side → shift right
+                    : "sm:mr-[calc(50%+3rem)]" // right side → shift left
+                } ml-8`}
             >
               {/* Flex container for image and text */}
               <div className="flex items-center space-x-6">
@@ -72,7 +84,7 @@ const Education = () => {
 
               <p className="mt-4 text-gray-400 font-bold">Grade: {edu.grade}</p>
               <p className="mt-4 text-gray-400">{edu.desc}</p>
-            </div>
+            </motion.div>
           </div>
         ))}
       </div>

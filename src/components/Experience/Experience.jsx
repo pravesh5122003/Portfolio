@@ -1,5 +1,42 @@
 import React from "react";
-import { experiences } from "../../constants"; // Import your data
+import { motion } from "framer-motion"; // ✅ added
+
+
+const experiences = [
+  {
+    id: 1,
+    role: "Web Development Intern",
+    company: "IIIT Allahabad (Effervescence) • EngineerCore",
+    date: "August 2023 – September 2023",
+    desc: "Worked on building responsive web pages using HTML & CSS. Completed a structured internship program focused on frontend fundamentals, web accessibility, and layout best practices. Gained hands-on experience in writing clean, maintainable code for real-world projects.",
+    skills: ["HTML", "CSS", "Responsive Design", "Web Accessibility"],
+    img: "/src/assets/company_logo/agc_logo.png", // replace with your actual image path/logo
+  },
+  {
+    id: 2,
+    role: "Delegate – GRBMUN",
+    company: "G.L. Bajaj Institute of Technology & Management",
+    date: "September 2024",
+    desc: "Represented in committee discussions, debating on global issues and drafting resolutions. Enhanced public speaking, research, diplomacy, and negotiation skills while collaborating with international delegates in a professional conference environment.",
+    skills: [
+      "Public Speaking",
+      "Research",
+      "Diplomacy",
+      "Negotiation",
+      "Critical Thinking",
+    ],
+    img: "/src/assets/company_logo/mun_logo.png", // replace with your actual image path/logo
+  },
+  {
+    id: 3,
+    role: "Volunteer – 3rd ICDT",
+    company: "G.L. Bajaj Institute of Technology & Management",
+    date: "March 2025",
+    desc: "Contributed as a volunteer in organizing an international IEEE-recognized conference in 2025. Assisted with event coordination, logistics, and participant management. Developed strong teamwork and leadership skills while ensuring smooth execution of the conference.",
+    skills: ["Teamwork", "Leadership", "Event Management", "Communication"],
+    img: "/src/assets/company_logo/icdt_logo.png", // replace with your actual image path/logo
+  },
+];
 
 const Experience = () => {
   return (
@@ -40,21 +77,30 @@ const Experience = () => {
             </div>
 
             {/* Content Section */}
-            <div
-              className={`w-full sm:max-w-md p-4 sm:p-8 rounded-2xl shadow-2xl border border-white bg-gray-900 backdrop-blur-md shadow-[0_0_20px_1px_rgba(130,69,236,0.3)] ${
-                index % 2 === 0 ? "sm:ml-0" : "sm:mr-0"
-              } sm:ml-44 sm:mr-44 ml-8 transform transition-transform duration-300 hover:scale-105`}
-            >
+            <motion.div
+  initial={{
+    opacity: 0,
+    x: index % 2 === 0 ? 80 : -80, // slide in opposite side
+  }}
+  whileInView={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut" }} // ✅ slow + smooth
+  viewport={{ once: true }}
+  className={`w-full sm:max-w-md p-4 sm:p-8 rounded-2xl shadow-2xl border border-white bg-gray-900 backdrop-blur-md shadow-[0_0_20px_1px_rgba(130,69,236,0.3)] ${
+    index % 2 === 0 ? "sm:mr-30" : "sm:ml-30"
+  } ml-8 transform transition-transform duration-300 hover:scale-105`}
+>
+
               {/* Flex container for image and text */}
               <div className="flex items-center space-x-6">
-                {/* Company Logo/Image */}
-                <div className="w-16 h-16 bg-white rounded-md overflow-hidden">
-                  <img
-                    src={experience.img}
-                    alt={experience.company}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+               {/* Company Logo/Image */}
+<div className="w-16 h-16 bg-white rounded-md overflow-hidden flex justify-center items-center">
+  <img
+    src={experience.img}
+    alt={experience.company}
+    className="max-w-full max-h-full object-contain"
+  />
+</div>
+
 
                 {/* Role, Company Name, and Date */}
                 <div className="flex flex-col justify-between">
@@ -85,7 +131,8 @@ const Experience = () => {
                   ))}
                 </ul>
               </div>
-            </div>
+              </motion.div>
+
           </div>
         ))}
       </div>
